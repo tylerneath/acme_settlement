@@ -40,3 +40,5 @@ uvicorn main:app --reload
 the api will run on ``localhost:8000``
 
 
+### Future Improvements
+A potential follow-up improvement would be to leverage asynchronous processing to calculate the settlement for a merchant that has a large number of transactions. This would allow the service to handle multiple settlement calculations concurrently, improving performance and scalability. I believe this would be most helpful for merchants with high transaction volumes, where processing time could become a bottleneck.
