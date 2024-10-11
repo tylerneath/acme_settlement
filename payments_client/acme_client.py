@@ -23,7 +23,7 @@ def fetch_transactions(merchant_id: str, date: str):
 
         Raises:
         - InvalidMerchantIDException: If the merchant ID is invalid.
-        - RuntimeE
+        - RuntimeError: buggy api call
     """
     url = f"{BASE_URL}/transactions/"
     start_of_day = f"{date}T00:00:00Z"
@@ -39,11 +39,10 @@ def fetch_transactions(merchant_id: str, date: str):
         if response.status_code == 400:
             error_detail = response.json().get("merchant", [])
             if error_detail:
-                # Raise InvalidMerchantIDException, this will NOT trigger a retry
                 raise InvalidMerchantIDException(f"Invalid merchant ID: {merchant_id}")
 
         if response.status_code == 404:
-            return []  # No transactions found, return an empty list
+            return [] 
 
         response.raise_for_status()
         return response.json().get("results", [])
